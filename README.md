@@ -1,0 +1,2 @@
+# Remplacer-une-Livebox-5-par-un-MikroTik-hAP-ax-Orange-Fibre-
+Ce guide explique comment remplacer une Livebox 5 par un routeur MikroTik hAP ax² en DHCP sur VLAN 832 (méthode actuelle Orange), après récupération d’un ONT externe. Il inclut : sniff des trames de la Livebox (pour récupérer les options DHCP), configuration WinBox (GUI) et RouterOS , ainsi que quelques notes sur l’ancien accès PPPoE sur VLAN 835
