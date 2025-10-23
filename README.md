@@ -194,7 +194,7 @@ IP → DHCP Client → Options → +
 
 
 - Pour la livebox 5 Userclass et Vendor reste les memes pour client  id c'est 0x:mac_adresse_sans_:_
-pour l'auth c'est la tram sur wireshark sans les : et coller avec 0x au debut.
+l'auth c'est la tram 90 sur wireshark sans les : et coller avec 0x au debut.
 ---
 
 ### 4.4. DHCP Client
