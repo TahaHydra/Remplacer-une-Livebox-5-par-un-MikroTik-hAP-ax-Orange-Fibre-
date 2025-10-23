@@ -144,8 +144,8 @@ La meme chsoe pour l'adresse MAC faut recuperer celle de la livebox .
   Interface = vlan832
   Bridge = FTTH
   ```
- La photo bridge port.png
- 
+ <img width="1545" height="683" alt="bridge port" src="https://github.com/user-attachments/assets/324dcb80-e92a-465c-82ed-84fec24c5fa2" />
+
 ---
 
 ### 4.2. Forcer CoS = 6 sur DHCP
@@ -185,7 +185,7 @@ IP → DHCP Client → Options → +
 | User Class | 77 | `0x2b46535644534c5f6c697665626f782e496e7465726e65742e736f66746174686f6d652e4c697665626f7835` |
 | Auth (Option 90) | 90 | `0x00000000000000000000001a0900000558<FTI_HEX>` |
 
-La photo dhcpclientOptions.png
+<img width="1580" height="385" alt="dhcpclientOptions" src="https://github.com/user-attachments/assets/32f44792-b8e4-4a0f-8cb8-ffb4a7322958" />
 
 
 Pour la livebox 5 Userclass et Vendor reste les memes pour client  id c'est 0x:mac_adresse_sans_:_
@@ -200,7 +200,8 @@ DHCP Options = vendor, clientid, userclass, authsend
 Use Peer DNS = yes
 Add Default Route = yes
 ```
-La photo dhclient.png et la photo dhclientadvanced.png
+<img width="831" height="851" alt="dhclient" src="https://github.com/user-attachments/assets/5a549105-eb5d-496c-bbec-aa78aa7743ee" />
+<img width="858" height="850" alt="dhclientadvanced" src="https://github.com/user-attachments/assets/b44a0212-2d1b-434e-80cf-a66e5681210a" />
 
 ---
 
@@ -224,7 +225,9 @@ Action = masquerade
 ```
 IP → DNS : Allow Remote Requests = yes
 ```
-La photo ip_firewall_nat.png et ip_firewall_nat_masquerade.png
+<img width="1035" height="1055" alt="ip_firewall_nat" src="https://github.com/user-attachments/assets/251850d7-32dc-40fa-a964-9908fd5f016b" />
+<img width="1025" height="700" alt="ip_firewall_nat_masquerade" src="https://github.com/user-attachments/assets/c011881f-854d-4a83-b5d3-7e862bf24dfc" />
+
 ---
 
 ## Étape 5 — Tests
@@ -245,7 +248,7 @@ La photo ip_firewall_nat.png et ip_firewall_nat_masquerade.png
 Orange utilisait PPPoE sur VLAN 835 avec identifiants `fti/...`.  
 Ça fonctionnait souvent après clonage MAC et création d’une interface **PPPoE Client** sur `vlan835`.  
 Mais la majorité des lignes n’acceptent plus PPPoE : **DHCP/832** devient la norme.
-<img width="1817" height="1241" alt="image" src="https://github.com/user-attachments/assets/ecc55294-486f-4d61-bb5e-5172662108a2" />
+<img width="1800" height="1261" alt="image" src="https://github.com/user-attachments/assets/e2bd18ac-5169-44c6-8b8e-6601fee8ac48" />
 <img width="707" height="745" alt="image" src="https://github.com/user-attachments/assets/1bd984cd-036d-4532-bef1-b9541b47f7b8" />
 
 
