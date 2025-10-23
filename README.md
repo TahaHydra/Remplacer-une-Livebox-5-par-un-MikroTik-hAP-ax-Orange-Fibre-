@@ -193,7 +193,7 @@ IP → DHCP Client → Options → +
 <img width="1580" height="385" alt="dhcpclientOptions" src="https://github.com/user-attachments/assets/32f44792-b8e4-4a0f-8cb8-ffb4a7322958" />
 
 
-Pour la livebox 5 Userclass et Vendor reste les memes pour client  id c'est 0x:mac_adresse_sans_:_
+- Pour la livebox 5 Userclass et Vendor reste les memes pour client  id c'est 0x:mac_adresse_sans_:_
 pour l'auth c'est la tram sur wireshark sans les : et coller avec 0x au debut.
 ---
 
