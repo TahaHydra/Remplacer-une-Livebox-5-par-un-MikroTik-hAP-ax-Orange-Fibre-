@@ -79,7 +79,8 @@ Capter les trames DHCPv4/v6 envoyées par la Livebox pour extraire les **options
    ```
    udp.port==67 || udp.port==68 || udp.port==546 || udp.port==547 || dhcp || dhcpv6
    ```
-   ![thumbnail_image-1761239614806](https://github.com/user-attachments/assets/bf207454-53db-4bd6-b5e9-7aa558b7bb9b)
+   ![thumbnail_image-1761239614806](https://github.com/user-attachments/assets/ddae5d12-bc7f-4a96-851c-fa23d2c113d7)
+
 
 6. **Redémarrer la Livebox**, capturer quelques secondes.
 
