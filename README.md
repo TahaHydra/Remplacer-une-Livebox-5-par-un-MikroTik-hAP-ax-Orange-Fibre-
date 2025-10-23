@@ -50,14 +50,8 @@ ether1 (WAN) ── MikroTik hAP ax² ── Bridge LAN → Switch / Wi-Fi / PC
 
 ## Étape 1 — Obtenir et brancher l’ONT externe
 
-1. Contacter le **support Orange** pour demander un **ONT externe** (ou activer le vôtre).
-2. Brancher :
-   ```
-   Fibre → ONT
-   ONT (Ethernet) → ether1 du MikroTik (port WAN)
-   ```
+1. Contacter le **support Orange** pour demander un **ONT externe** (ou activer le vôtre) et demander vos identifiant et motdepasse (FTI).
 
----
 
 ## Étape 2 — Sniffer la Livebox pour récupérer les options DHCP
 
@@ -68,13 +62,16 @@ Capter les trames DHCPv4/v6 envoyées par la Livebox pour extraire les **options
 ### 🧱 2.1. Pont réseau Windows pour sniff
 
 1. Connecter :
-   - ONT ↔ PC (NIC #1)
-   - PC (NIC #2) ↔ Livebox WAN  
+   - ONT ↔ PC Avec un cable Ethernet 
+   - PC ↔ Livebox WAN Connecter au meme pc a  
 2. Dans **Panneau de configuration → Réseau → Connexions réseau** :
    - Sélectionner les deux interfaces
    - **Clic-droit → Connexions par pont (Bridge)**
+   - <img width="1133" height="630" alt="Screenshot 2025-10-23 205913" src="https://github.com/user-attachments/assets/1297972d-da72-4f6a-8c31-fc371bb12e98" />
+
 3. Dans les propriétés du pont :
    - Cocher `Microsoft Network Monitor Driver` (ou `Npcap/WinPcap`)
+   - Cocher bien les 2 interfaces de l'ont et la livebox
 4. Ouvrir **Wireshark** → interface du pont réseau
 5. Filtre conseillé :
    ```
@@ -94,6 +91,12 @@ Capter les trames DHCPv4/v6 envoyées par la Livebox pour extraire les **options
 | Option 61 | `01:<MAC Livebox>` |
 | Option 77 | `+FSVDSL_livebox.Internet.softathome.Livebox5` |
 | Option 90 | Blob contenant `fti/...` (authentification) |
+
+
+Pour l’option 90, il faut aller dans File → Export Packet Dissections → As JSON dans Wireshark afin d’obtenir la valeur complète.
+Les valeurs apparaissent sous la forme 00:AA:BB:CC:ZZ:SS:DD:GG:HH:GG.
+Supprime tous les : pour ne garder que la chaîne brute, puis ajoute 0x au début afin d’obtenir la valeur hexadécimale finale.
+La meme chsoe pour l'adresse MAC faut recuperer celle de la livebox .
 
 #### DHCPv6 (SOLICIT/REQUEST)
 - DUID client (basé sur MAC)
@@ -126,18 +129,23 @@ Capter les trames DHCPv4/v6 envoyées par la Livebox pour extraire les **options
   Protocol Mode = none
   Fast Forward = ON
   ```
+  La photo bridge1.png
+  
 - **Interfaces → VLAN → +**
   ```
   Name = vlan832
   VLAN ID = 832
   Interface = ether1
   ```
+  La photo vlan832_creation.png
+  
 - **Bridge → Ports → +**
   ```
   Interface = vlan832
   Bridge = FTTH
   ```
-
+ La photo bridge port.png
+ 
 ---
 
 ### 4.2. Forcer CoS = 6 sur DHCP
@@ -153,6 +161,7 @@ Dst Port = 67
 Action = set priority
 New Priority = 6
 ```
+La photo bridgefilter**.png chaque filtre a 2 photo pour les 2 onglets de parametres
 
 IPv6 :
 ```
@@ -176,6 +185,11 @@ IP → DHCP Client → Options → +
 | User Class | 77 | `0x2b46535644534c5f6c697665626f782e496e7465726e65742e736f66746174686f6d652e4c697665626f7835` |
 | Auth (Option 90) | 90 | `0x00000000000000000000001a0900000558<FTI_HEX>` |
 
+La photo dhcpclientOptions.png
+
+
+Pour la livebox 5 Userclass et Vendor reste les memes pour client  id c'est 0x:mac_adresse_sans_:_
+pour l'auth c'est la tram sur wireshark sans les : et coller avec 0x au debut.
 ---
 
 ### 4.4. DHCP Client
@@ -186,6 +200,7 @@ DHCP Options = vendor, clientid, userclass, authsend
 Use Peer DNS = yes
 Add Default Route = yes
 ```
+La photo dhclient.png et la photo dhclientadvanced.png
 
 ---
 
@@ -196,7 +211,7 @@ Add Default Route = yes
 Request = prefix
 Advanced: Use Interface DUID = yes
 ```
-
+j'ai que ipv4 pour mon cas.
 ---
 
 ### 4.6. NAT & DNS
@@ -209,7 +224,7 @@ Action = masquerade
 ```
 IP → DNS : Allow Remote Requests = yes
 ```
-
+La photo ip_firewall_nat.png et ip_firewall_nat_masquerade.png
 ---
 
 ## Étape 5 — Tests
@@ -230,6 +245,10 @@ IP → DNS : Allow Remote Requests = yes
 Orange utilisait PPPoE sur VLAN 835 avec identifiants `fti/...`.  
 Ça fonctionnait souvent après clonage MAC et création d’une interface **PPPoE Client** sur `vlan835`.  
 Mais la majorité des lignes n’acceptent plus PPPoE : **DHCP/832** devient la norme.
+<img width="1817" height="1241" alt="image" src="https://github.com/user-attachments/assets/ecc55294-486f-4d61-bb5e-5172662108a2" />
+<img width="707" height="745" alt="image" src="https://github.com/user-attachments/assets/1bd984cd-036d-4532-bef1-b9541b47f7b8" />
+
+
 
 ---
 
