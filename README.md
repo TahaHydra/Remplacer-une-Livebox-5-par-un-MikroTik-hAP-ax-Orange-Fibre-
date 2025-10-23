@@ -68,6 +68,8 @@ Capter les trames DHCPv4/v6 envoyées par la Livebox pour extraire les **options
    - Sélectionner les deux interfaces
    - **Clic-droit → Connexions par pont (Bridge)**
    - <img width="1133" height="630" alt="Screenshot 2025-10-23 205913" src="https://github.com/user-attachments/assets/1297972d-da72-4f6a-8c31-fc371bb12e98" />
+   - ![capture](https://github.com/user-attachments/assets/2133c2b8-35fc-4f10-8478-5fec066c2085)
+
 
 3. Dans les propriétés du pont :
    - Cocher `Microsoft Network Monitor Driver` (ou `Npcap/WinPcap`)
@@ -77,6 +79,8 @@ Capter les trames DHCPv4/v6 envoyées par la Livebox pour extraire les **options
    ```
    udp.port==67 || udp.port==68 || udp.port==546 || udp.port==547 || dhcp || dhcpv6
    ```
+   ![thumbnail_image-1761239614806](https://github.com/user-attachments/assets/bf207454-53db-4bd6-b5e9-7aa558b7bb9b)
+
 6. **Redémarrer la Livebox**, capturer quelques secondes.
 
 ---
